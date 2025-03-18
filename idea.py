@@ -91,6 +91,8 @@ class IDEA:
         self._keys = tuple(keys)
 
     def encrypt(self, plaintext):
+        if isinstance(key, str):
+            key = int(key)
         assert 0 <= plaintext < (1 << 64)
         x1 = (plaintext >> 48) & 0xFFFF
         x2 = (plaintext >> 32) & 0xFFFF
