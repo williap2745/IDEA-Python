@@ -73,7 +73,9 @@ class IDEA:
         self.change_key(key)
 
     def change_key(self, key):
-        assert 0 <= ord(key) < (1 << 128)
+        if isinstance(key, bytes):
+            key = int.from_bytes(key, byteorder = 'big') # converting bytes
+        assert 0 <= key < (1 << 128)
         modulus = 1 << 128
 
         sub_keys = []
