@@ -73,6 +73,8 @@ class IDEA:
         self.change_key(key)
 
     def change_key(self, key):
+        if isinstance(key, bytes):
+            key = int.from_bytes(key, byteorder = 'big') # converting bytes
         assert 0 <= key < (1 << 128)
         modulus = 1 << 128
 
@@ -89,6 +91,10 @@ class IDEA:
         self._keys = tuple(keys)
 
     def encrypt(self, plaintext):
+        if isinstance(plaintext, str):
+            #convert string to bytes, then to an integer (64-bit)
+            #ensuring the string is the correct length
+            plaintext = int.from_bytes(plaintext.encode(), 'big')
         assert 0 <= plaintext < (1 << 64)
         x1 = (plaintext >> 48) & 0xFFFF
         x2 = (plaintext >> 32) & 0xFFFF
@@ -121,14 +127,14 @@ def main():
     plain = 0xF129A6601EF62A47
     cipher = 0xEA024714AD5C4D84
 
-    print 'key\t\t', hex(key)
-    print 'plaintext\t', hex(plain)
+    print('key\t\t', hex(key))
+    print('plaintext\t', hex(plain))
 
     my_IDEA = IDEA(key)
     encrypted = my_IDEA.encrypt(plain)
     assert encrypted == cipher
 
-    print 'ciphertext\t', hex(cipher)
+    print('ciphertext\t', hex(cipher))
 
 
 if __name__ == '__main__':
