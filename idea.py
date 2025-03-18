@@ -35,7 +35,7 @@ def _KA_layer(x1, x2, x3, x4, round_keys):
     assert 0 <= z3 <= 0xFFFF
     assert 0 <= z4 <= 0xFFFF
 
-    y1 = _mul(x1, z1
+    y1 = _mul(x1, z1)
     y2 = (x2 + z2) % 0x10000
     y3 = (x3 + z3) % 0x10000
     y4 = _mul(x4, z4)
