@@ -92,7 +92,9 @@ class IDEA:
 
     def encrypt(self, plaintext):
         if isinstance(plaintext, str):
-            plaintext = int(plaintext)
+            #convert string to bytes, then to an integer (64-bit)
+            #ensuring the string is the correct length
+            plaintext = int.from_bytes(plaintext.encode(), 'big')
         assert 0 <= plaintext < (1 << 64)
         x1 = (plaintext >> 48) & 0xFFFF
         x2 = (plaintext >> 32) & 0xFFFF
