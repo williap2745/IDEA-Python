@@ -73,7 +73,7 @@ class IDEA:
         self.change_key(key)
 
     def change_key(self, key):
-        assert 0 <= key < (1 << 128)
+        assert 0 <= ord(key) < (1 << 128)
         modulus = 1 << 128
 
         sub_keys = []
